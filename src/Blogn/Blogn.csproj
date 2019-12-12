@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blogn.Core\Blogn.Core.csproj" />
+    <ProjectReference Include="..\Blogn.Data.SqlServer\Blogn.Data.SqlServer.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+
+
+</Project>
