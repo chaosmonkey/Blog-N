@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Blogn.Configuration;
+using ChaosMonkey.Guards;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,15 +12,19 @@ namespace Blogn
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = Guard.IsNotNull(configuration, nameof(configuration));
         }
 
         public IConfiguration Configuration { get; }
 
+        public BlognModuleCollection Modules { get; private set; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            Modules = new BlognModuleCollection(services, Configuration);
+
+            Modules.AddServices().AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +53,8 @@ namespace Blogn
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            Modules.Configure();
         }
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ChaosMonkey.Guards.NetStandard" Version="1.0.23" />
   </ItemGroup>
 
   <PropertyGroup>
