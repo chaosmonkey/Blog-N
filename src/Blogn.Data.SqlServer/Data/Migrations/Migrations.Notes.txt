@@ -1,0 +1,2 @@
+﻿# From <Repository>\src\Blogn.Data.SqlServer
+Add-Migration InitialMigration -OutputDir .\Data\Migrations\
