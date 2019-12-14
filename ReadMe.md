@@ -2,6 +2,14 @@
 
 An ASP.NET Core CMS/Blog Platform
 
+## CI Builds & Deployments
+
+Development Environment: (develop banch)
+
+[![Build status](https://dev.azure.com/chaosmonkey/Blog-n/_apis/build/status/Blog-n%20CI%20Build)](https://dev.azure.com/chaosmonkey/Blog-n/_build/latest?definitionId=24)
+
+Dev/Test Site: [https://blogn.azurewebsites.net/](https://blogn.azurewebsites.net/)
+
 ## Getting Started
 
 Before getting started working with Blog-n locally you will need to create a secrets file. To do this:
