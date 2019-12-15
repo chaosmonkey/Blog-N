@@ -8,7 +8,7 @@ namespace Blogn.Services
 	{
 		public string CalculateAvatarId(string email)
 		{
-			var sourceBytes = Encoding.UTF8.GetBytes(email);
+			var sourceBytes = Encoding.UTF8.GetBytes(email.Trim());
 			using(var algorithm = MD5.Create())
             {
                 var hash = algorithm.ComputeHash(sourceBytes);

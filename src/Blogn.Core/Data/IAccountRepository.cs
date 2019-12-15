@@ -12,6 +12,7 @@ namespace Blogn.Data
 		void AddAccount(Account account);
 		void UpdateAccount(Account account);
 
+        Task<Credentials> RetrieveCredentialsAsync(int accountId);
 		void UpdateCredentials(Credentials credentials);
 
 		Task SaveAsync();

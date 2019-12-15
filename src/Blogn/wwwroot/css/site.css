@@ -12,3 +12,9 @@
 .avatar-circle-120 {
     border-radius: 60px;
 }
+
+.validation-no-bullets ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 8px;
+}

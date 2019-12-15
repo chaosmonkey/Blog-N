@@ -4,10 +4,11 @@ using System.Linq;
 using System.Reflection;
 using Blogn.Configuration.Binding;
 using ChaosMonkey.Guards;
+using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blogn.Configuration
+namespace Blogn.Configuration.Modules
 {
     public class BlognModuleCollection
     {
@@ -36,12 +37,12 @@ namespace Blogn.Configuration
         public IServiceCollection AddServices()
         {
             Modules.ForEach(module=>module.AddModuleServices(Services, Configuration));
-            return Services.AddBoundConfigurations(Configuration, LoadedAssemblies).Services;
+            return Services
+                    .AddBoundConfigurations(Configuration, LoadedAssemblies)
+                    .Services
+                    .AddMediatR(LoadedAssemblies.ToArray())
+                    .AddMappingProfiles(LoadedAssemblies);
         }
-
-        public void Configure()
-        {
-        }
-
+        
     }
 }

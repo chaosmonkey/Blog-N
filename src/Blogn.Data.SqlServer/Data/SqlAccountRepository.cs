@@ -27,7 +27,8 @@ namespace Blogn.Data
 		}
 
 		public Task<bool> CheckIfAccountExistsAsync(string email)
-		{
+        {
+            var address = email?.ToLower() ?? string.Empty;
 			return Db.Accounts.AnyAsync(account => account.Email.ToLower() == email.ToLower());
 		}
 
@@ -41,7 +42,12 @@ namespace Blogn.Data
 			Db.Accounts.Update(account);
 		}
 
-		public void UpdateCredentials(Credentials credentials)
+        public Task<Credentials> RetrieveCredentialsAsync(int accountId)
+        {
+            return Db.Credentials.SingleOrDefaultAsync(credentials => credentials.AccountId == accountId);
+        }
+
+        public void UpdateCredentials(Credentials credentials)
 		{
 			Db.Credentials.Update(credentials);
 		}

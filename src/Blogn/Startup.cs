@@ -1,13 +1,13 @@
-﻿using System.Reflection;
-using AutoMapper;
-using Blogn.Configuration;
-using Blogn.Configuration.Binding;
+﻿using System;
+using Blogn.Configuration.Modules;
+using Blogn.Constants;
 using Blogn.Data.Migrations;
 using ChaosMonkey.Guards;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore.Migrations.Internal;
-using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,7 +30,21 @@ namespace Blogn
         {
             Modules = new BlognModuleCollection(services, Configuration);
 
-            Modules.AddServices().AddControllersWithViews();
+            Modules
+                .AddServices()
+                .AddHttpContextAccessor()
+                .AddAuthentication(options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = WellKnownRoute.SignIn;
+                    options.LogoutPath = WellKnownRoute.SignOut;
+                    options.AccessDeniedPath = WellKnownRoute.Forbidden;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Strict;
+                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                }).Services
+                .AddControllersWithViews(options=>options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +65,7 @@ namespace Blogn
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -60,7 +75,6 @@ namespace Blogn
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            Modules.Configure();
             migrator.Migrate();
         }
     }
