@@ -117,7 +117,7 @@ namespace Blogn.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromForm]RegistrationModel model, string returnUrl = "/")
+        public async Task<IActionResult> Register([FromForm]RegistrationModel model, [FromQuery] string returnUrl = "/")
         {
             if (!ModelState.IsValid) return View(model);
 
@@ -140,7 +140,7 @@ namespace Blogn.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword([FromForm] ChangePasswordModel model, string returnUrl = "/")
+        public async Task<IActionResult> ChangePassword([FromForm] ChangePasswordModel model,[FromQuery] string returnUrl = "/")
         {
             if (!ModelState.IsValid) return View(model);
 
@@ -154,6 +154,55 @@ namespace Blogn.Controllers
             }
             ModelState.AddModelError("", response.ErrorMessage);
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ViewResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword([FromForm]ForgotPasswordModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+
+            var command = Mapper.Map<ForgotPassword>(model);
+            command.SiteProtocol = Request.Scheme;
+            command.SiteDomain = Request.Host.ToString();
+            var response = await Mediator.Send(command);
+
+            if (response.Type == ResponseType.Error)
+            {
+                ModelState.AddModelError("", response.ErrorMessage);
+                return View(model);
+            }
+
+            return RedirectToAction("ResetSent");
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ViewResult> ResetSent([FromRoute]string id)
+        {
+            var command = new ValidateResetToken { Token = id };
+            var response = await Mediator.Send(command);
+            var model = new ValidateTokenModel
+            {
+                IsValid = response.Type==ResponseType.Success,
+                ErrorMessage = response.ErrorMessage
+            };
+
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetToken([FromForm]ResetPasswordModel model,[FromRoute] string id)
+        {
+            return View();
         }
 
         private async Task<IActionResult> SignInAsync(Account account, string returnUrl)

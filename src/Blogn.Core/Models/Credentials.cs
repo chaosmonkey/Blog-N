@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Blogn.Models
 {
@@ -9,5 +11,6 @@ namespace Blogn.Models
 		public DateTimeOffset DateCreated { get; set; }
 		public DateTimeOffset DateUpdated { get; set; }
 		public Account Account { get; set; }
+        public ICollection<ResetToken> ResetTokens { get; set; }
 	}
 }

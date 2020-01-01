@@ -15,6 +15,8 @@ namespace Blogn.Configuration
             CreateMap<Account, EditMyAccountModel>();
             CreateMap<EditMyAccountModel, EditMyAccount>();
             CreateMap<ChangePasswordModel, ChangePassword>();
+            CreateMap<ForgotPasswordModel, ForgotPassword>();
+            CreateMap<ResetPasswordModel, ResetPassword>();
         }
     }
 }

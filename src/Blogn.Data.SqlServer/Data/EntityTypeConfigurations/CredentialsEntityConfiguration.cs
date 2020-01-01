@@ -13,6 +13,7 @@ namespace Blogn.Data.EntityTypeConfigurations
             builder.Property(entity => entity.DateCreated).IsRequired();
             builder.Property(entity => entity.DateUpdated).IsRequired();
             builder.HasOne(entity => entity.Account).WithOne(entity => entity.Credentials);
+            builder.HasMany(entity => entity.ResetTokens).WithOne(entity => entity.Credentials);
         }
     }
 }

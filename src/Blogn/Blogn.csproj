@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Blogn.Infrastructure.SendGrid\Blogn.Infrastructure.SendGrid.csproj" />
     <ProjectReference Include="..\Blogn.Core\Blogn.Core.csproj" />
     <ProjectReference Include="..\Blogn.Data.SqlServer\Blogn.Data.SqlServer.csproj" />
   </ItemGroup>

@@ -15,16 +15,18 @@ namespace Blogn.Data
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
-		{
-			modelBuilder
-				.ApplyConfiguration(new AccountEntityConfiguration())
-				.ApplyConfiguration(new CredentialsEntityConfiguration())
-				.ApplyConfiguration(new AccountRoleEntityConfiguration());
+        {
+            modelBuilder
+                .ApplyConfiguration(new AccountEntityConfiguration())
+                .ApplyConfiguration(new CredentialsEntityConfiguration())
+                .ApplyConfiguration(new AccountRoleEntityConfiguration())
+                .ApplyConfiguration(new ResetTokenEntityConfiguration());
 			base.OnModelCreating(modelBuilder);
 		}
 
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<AccountRole> AccountRoles { get; set; }
 		public DbSet<Credentials> Credentials { get; set; }
+        public DbSet<ResetToken> ResetTokens { get; set; }
 	}
 }

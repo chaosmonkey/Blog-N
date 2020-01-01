@@ -15,6 +15,9 @@ namespace Blogn.Data
         Task<Credentials> RetrieveCredentialsAsync(int accountId);
 		void UpdateCredentials(Credentials credentials);
 
+        Task<ResetToken> RetrieveResetToken(string token);
+        void AddResetToken(ResetToken token);
+        
 		Task SaveAsync();
 		Task SaveAsync(CancellationToken token);
 	}

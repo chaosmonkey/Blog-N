@@ -52,7 +52,20 @@ namespace Blogn.Data
 			Db.Credentials.Update(credentials);
 		}
 
-		public Task SaveAsync()
+        public Task<ResetToken> RetrieveResetToken(string token)
+        {
+            return Db.ResetTokens
+                    .Include(entity=>entity.Credentials)
+                    .Include(entity=>entity.Credentials.Account)
+                    .SingleOrDefaultAsync(entity => entity.Token == token);
+        }
+
+        public void AddResetToken(ResetToken token)
+        {
+            Db.ResetTokens.Add(token);
+        }
+
+        public Task SaveAsync()
 		{
 			return Db.SaveChangesAsync();
 		}

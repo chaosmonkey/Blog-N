@@ -3,6 +3,10 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20191213032756_InitialMigration.cs" />
     <Compile Remove="Data\Migrations\20191213032756_InitialMigration.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191218033100_AddResetTokens.cs" />
+    <Compile Remove="Data\Migrations\20191218033100_AddResetTokens.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191219064958_ResetTokens.cs" />
+    <Compile Remove="Data\Migrations\20191219064958_ResetTokens.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
