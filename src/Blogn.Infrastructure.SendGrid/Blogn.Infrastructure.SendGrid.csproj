@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Blogn.Core\Blogn.Core.csproj" />
+    <ProjectReference Include="..\Blogn.Core\Blogn.Core.csproj" />
   </ItemGroup>
 
 </Project>

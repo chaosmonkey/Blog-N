@@ -32,9 +32,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{D407459A-4
 		ReadMe.md = ReadMe.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogn.Infrastructure.SendGrid", "Blogn.Infrastructure.SendGrid\Blogn.Infrastructure.SendGrid.csproj", "{9A911171-894B-49DD-A376-26A1646B6DD4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogn.Infrastructure.SendGrid", "src\Blogn.Infrastructure.SendGrid\Blogn.Infrastructure.SendGrid.csproj", "{9A911171-894B-49DD-A376-26A1646B6DD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogn.Infrastructure.SendGrid.Tests", "Blogn.Infrastructure.SendGrid.Tests\Blogn.Infrastructure.SendGrid.Tests.csproj", "{763DD039-2849-4FBC-BB92-BE3FA6BE390F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blogn.Infrastructure.SendGrid.Tests", "tests\Blogn.Infrastructure.SendGrid.Tests\Blogn.Infrastructure.SendGrid.Tests.csproj", "{763DD039-2849-4FBC-BB92-BE3FA6BE390F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
