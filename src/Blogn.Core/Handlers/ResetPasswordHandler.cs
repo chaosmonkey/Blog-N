@@ -57,11 +57,11 @@ namespace Blogn.Handlers
                     return ResetPasswordResponse.NotFound();
                 }
                 if(token!=null 
-                    && token.DateExpired < now 
+                    && token.DateExpired > now 
                     && !token.DateConsumed.HasValue 
                     && string.Equals(token.Credentials.Account.Email, request.Email, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    token.Credentials.Password = Hasher.HashPassword(request.Password);
+                    token.Credentials.Password = Hasher.HashPassword(request.NewPassword);
                     token.Consume(now);
                     await Repository.SaveAsync();
                     Logger.LogInformation($"Password for '{request.Email}' was updated using token '{request.Token}'.");

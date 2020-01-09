@@ -185,24 +185,58 @@ namespace Blogn.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ViewResult> ResetSent([FromRoute]string id)
+        public ViewResult ResetSent([FromRoute]string id)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResetPassword([FromRoute]string id)
         {
             var command = new ValidateResetToken { Token = id };
             var response = await Mediator.Send(command);
-            var model = new ValidateTokenModel
+            switch (response.Type)
             {
-                IsValid = response.Type==ResponseType.Success,
-                ErrorMessage = response.ErrorMessage
-            };
+                case ResponseType.Success:
+                    return View();
+                case ResponseType.NotFound:
+                    return RedirectToAction("ResetPasswordStatus", new { id = ResetPasswordStatusModel.StatusKey.NotFound });
+                default:
+                    return RedirectToAction("ResetPasswordStatus", new { id = ResetPasswordStatusModel.StatusKey.ValidationError });
+            }
 
-            return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ResetToken([FromForm]ResetPasswordModel model,[FromRoute] string id)
+        public async Task<IActionResult> ResetPassword([FromForm]ResetPasswordModel model,[FromRoute] string id)
         {
-            return View();
+            if (!ModelState.IsValid) return View(model);
+
+            var command = Mapper.Map<ResetPassword>(model);
+            command.Token = id;
+            var response = await Mediator.Send(command);
+
+            switch (response.Type)
+            {
+                case ResponseType.Success:
+                    return RedirectToAction("ResetPasswordStatus", new { id = ResetPasswordStatusModel.StatusKey.Success });
+                case ResponseType.NotFound:
+                    return RedirectToAction("ResetPasswordStatus", new { id = ResetPasswordStatusModel.StatusKey.NotFound });
+                default:
+                    ModelState.AddModelError("", response.ErrorMessage);
+                    return View(model);
+            }
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ViewResult ResetPasswordStatus(string id)
+        {
+            var model = new ResetPasswordStatusModel(id);
+            return View(model);
         }
 
         private async Task<IActionResult> SignInAsync(Account account, string returnUrl)
