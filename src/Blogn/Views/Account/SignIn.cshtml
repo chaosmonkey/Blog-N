@@ -2,33 +2,32 @@
 @{
 	ViewData[ViewKey.Title] = "Sign In";
 }
-<div class="row">
-	<div class="col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2">
-		<div>
-			<p>
-				<h1 class="text-center">Sign In</h1>
-			</p>
-		</div>
-        <div>
-            <form asp-action="SignIn" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger validation-no-bullets"></div>
-                <div class="form-group">
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+        <div class="row">
+	        <div class="col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2">
+                <div>
+                    <h1 class="text-center">Sign In</h1>
                 </div>
-                <div class="form-group">
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                <div class="pt-3">
+                    <form asp-action="SignIn" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger validation-no-bullets"></div>
+                        <div class="form-group">
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group pt-3">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-            </form>
+		        <div class="text-center p-3">
+			        <a asp-controller="Account" asp-action="ForgotPassword">Forgot Password</a>
+		        </div>
+	        </div>
         </div>
-		<div class="text-center p-4">
-			<a asp-controller="Account" asp-action="ForgotPassword">Forgot Password</a>
-		</div>
-	</div>
-</div>
-
 @section Scripts{
 	<partial name="_ValidationScriptsPartial" />
 }

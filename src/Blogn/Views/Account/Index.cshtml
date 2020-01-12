@@ -2,24 +2,22 @@
 @{
     ViewData[ViewKey.Title] = "My Account";
 }
-<div class="row">
-	<div class="col-lg-12">
-		<h1>My Account</h1>
-		<div class="row">
-			<div class="col-6 offset-3 text-center">
-				<avatar avatar-id="@Model.AvatarId" size="120" class="avatar-circle-120"/>
-				<h2>@Model.DisplayName</h2>
-				<p>@Model.Email</p>
-				<p>
-					Roles: @string.Join(", ", Model.RoleNames)
-				</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-6 offset-3 text-center">
-				<a asp-action="Edit" class="btn btn-primary">Edit</a>
-				<a asp-action="ChangePassword" class="btn btn-secondary">Change Password</a>
-			</div>
-		</div>
-	</div>
-</div>
+    <div class="row">
+        <div class="col-12">
+            <h1>My Account</h1>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-8 offset-lg-4 offset-md-3 offset-sm-2 text-center">
+            <div>
+                <avatar avatar-id="@Model.AvatarId" size="120" class="avatar-circle-120" />
+                <h2>@Model.DisplayName</h2>
+                <p>@Model.Email</p>
+                <p>
+                    Roles: @string.Join(", ", Model.RoleNames)
+                </p>
+            </div>
+            <div class="pt-3">
+                <a asp-action="Edit" class="btn btn-primary btn-block">Edit</a>
+                <a asp-action="ChangePassword" class="btn btn-secondary btn-block">Change Password</a>
+            </div>
+        </div>
+    </div>
